@@ -11,6 +11,7 @@ const categorySelect = document.getElementById('category-select');
 document.addEventListener('DOMContentLoaded', loadTasks);
 
 // Add task function
+loadTasks();
 addTaskButton.addEventListener('click', () => {
     const taskText = taskInput.value.trim();
     const dueDate = document.getElementById('due-date').value;
@@ -21,6 +22,7 @@ addTaskButton.addEventListener('click', () => {
         taskInput.value = '';
         document.getElementById('due-date').value = '';
     }
+    checkOverdueTasks();
 });
 
 // Clear all tasks function
@@ -127,3 +129,19 @@ categorySelect.addEventListener('change', () => {
         }
     });
 });
+
+function checkOverdueTasks() {
+    const today = new Date().toISOString().split('T')[0];
+    const tasks = document.querySelectorAll('#task-list li');
+
+    tasks.forEach(task => {
+        const taskText = task.firstChild.textContent;
+        const match = taskText.match(/\(([^)]+)\)$/); // Extract the due date
+        if (match) {
+            const dueDate = match[1];
+            if (dueDate && dueDate < today) {
+                task.style.color = '#dc3545'; // Red color for overdue tasks
+            }
+        }
+    });
+}

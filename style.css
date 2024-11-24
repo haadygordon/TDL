@@ -155,3 +155,8 @@ h1 {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+
+.overdue {
+    color: #dc3545;
+    font-weight: bold;
+}
