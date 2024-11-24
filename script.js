@@ -27,9 +27,11 @@ clearTasksButton.addEventListener('click', () => {
 });
 
 // Create a task element
+// Add animation when a task is created
 function createTaskElement(taskText) {
     const taskItem = document.createElement('li');
     taskItem.textContent = taskText;
+    taskItem.classList.add('task-appear'); // Add animation class
 
     // Add complete functionality
     taskItem.addEventListener('click', () => {
@@ -44,8 +46,11 @@ function createTaskElement(taskText) {
     deleteButton.style.color = '#dc3545';
     deleteButton.style.cursor = 'pointer';
     deleteButton.addEventListener('click', () => {
-        taskList.removeChild(taskItem);
-        removeTaskFromLocalStorage(taskText);
+        taskItem.classList.add('task-disappear'); // Add removal animation
+        setTimeout(() => {
+            taskList.removeChild(taskItem); // Remove after animation
+            removeTaskFromLocalStorage(taskText);
+        }, 300); // Match animation duration
     });
 
     taskItem.appendChild(deleteButton);

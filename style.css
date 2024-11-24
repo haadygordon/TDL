@@ -97,3 +97,37 @@ h1 {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade-out animation */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* Task appearance */
+.task-appear {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Task disappearance */
+.task-disappear {
+    animation: fadeOut 0.3s ease-out;
+}
