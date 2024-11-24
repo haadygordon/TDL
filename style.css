@@ -143,3 +143,15 @@ h1 {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+
+.date-section {
+    margin-bottom: 20px;
+}
+
+#due-date {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

@@ -13,12 +13,13 @@ document.addEventListener('DOMContentLoaded', loadTasks);
 // Add task function
 addTaskButton.addEventListener('click', () => {
     const taskText = taskInput.value.trim();
-    const category = document.getElementById('category-select').value;
+    const dueDate = document.getElementById('due-date').value;
     if (taskText) {
-        const taskItem = createTaskElement(taskText, category);
+        const taskItem = createTaskElement(taskText, 'all', dueDate);
         taskList.appendChild(taskItem);
-        saveTaskToLocalStorage(taskText, category);
+        saveTaskToLocalStorage(taskText, 'all', dueDate);
         taskInput.value = '';
+        document.getElementById('due-date').value = '';
     }
 });
 
@@ -30,9 +31,10 @@ clearTasksButton.addEventListener('click', () => {
 
 // Create a task element
 // Add animation when a task is created
-function createTaskElement(taskText, category = 'all') {
+function createTaskElement(taskText, category = 'all', dueDate = '') {
     const taskItem = document.createElement('li');
     taskItem.textContent = taskText;
+    taskItem.textContent = `${taskText} (${dueDate || 'No due date'})`;
     taskItem.dataset.category = category; // Store category as a data attribute
     taskItem.classList.add('task-appear'); // Add animation class
 
@@ -63,7 +65,7 @@ function createTaskElement(taskText, category = 'all') {
 // Save a new task to localStorage
 function saveTaskToLocalStorage(taskText) {
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    tasks.push({ text: taskText, category, completed: false });
+    tasks.push({ text: taskText, category, dueDate, completed: false });
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
