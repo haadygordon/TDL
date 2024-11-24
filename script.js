@@ -3,6 +3,8 @@ const taskInput = document.getElementById('task-input');
 const addTaskButton = document.getElementById('add-task');
 const taskList = document.getElementById('task-list');
 const clearTasksButton = document.getElementById('clear-tasks');
+// Select the search input
+const searchInput = document.getElementById('search-input');
 
 // Load tasks from localStorage when the page loads
 document.addEventListener('DOMContentLoaded', loadTasks);
@@ -87,3 +89,18 @@ function updateTaskStatusInLocalStorage(taskText) {
     });
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
+
+// Filter tasks function
+searchInput.addEventListener('input', () => {
+    const filterText = searchInput.value.toLowerCase();
+    const tasks = document.querySelectorAll('#task-list li');
+
+    tasks.forEach(task => {
+        const taskText = task.firstChild.textContent.toLowerCase();
+        if (taskText.includes(filterText)) {
+            task.style.display = ''; // Show task
+        } else {
+            task.style.display = 'none'; // Hide task
+        }
+    });
+});
