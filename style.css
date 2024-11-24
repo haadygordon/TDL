@@ -131,3 +131,15 @@ h1 {
 .task-disappear {
     animation: fadeOut 0.3s ease-out;
 }
+
+.category-section {
+    margin-bottom: 20px;
+}
+
+#category-select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

@@ -5,6 +5,7 @@ const taskList = document.getElementById('task-list');
 const clearTasksButton = document.getElementById('clear-tasks');
 // Select the search input
 const searchInput = document.getElementById('search-input');
+const categorySelect = document.getElementById('category-select');
 
 // Load tasks from localStorage when the page loads
 document.addEventListener('DOMContentLoaded', loadTasks);
@@ -12,10 +13,11 @@ document.addEventListener('DOMContentLoaded', loadTasks);
 // Add task function
 addTaskButton.addEventListener('click', () => {
     const taskText = taskInput.value.trim();
+    const category = document.getElementById('category-select').value;
     if (taskText) {
-        const taskItem = createTaskElement(taskText);
+        const taskItem = createTaskElement(taskText, category);
         taskList.appendChild(taskItem);
-        saveTaskToLocalStorage(taskText);
+        saveTaskToLocalStorage(taskText, category);
         taskInput.value = '';
     }
 });
@@ -28,9 +30,10 @@ clearTasksButton.addEventListener('click', () => {
 
 // Create a task element
 // Add animation when a task is created
-function createTaskElement(taskText) {
+function createTaskElement(taskText, category = 'all') {
     const taskItem = document.createElement('li');
     taskItem.textContent = taskText;
+    taskItem.dataset.category = category; // Store category as a data attribute
     taskItem.classList.add('task-appear'); // Add animation class
 
     // Add complete functionality
@@ -60,7 +63,7 @@ function createTaskElement(taskText) {
 // Save a new task to localStorage
 function saveTaskToLocalStorage(taskText) {
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    tasks.push({ text: taskText, completed: false });
+    tasks.push({ text: taskText, category, completed: false });
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
@@ -103,6 +106,19 @@ searchInput.addEventListener('input', () => {
     tasks.forEach(task => {
         const taskText = task.firstChild.textContent.toLowerCase();
         if (taskText.includes(filterText)) {
+            task.style.display = ''; // Show task
+        } else {
+            task.style.display = 'none'; // Hide task
+        }
+    });
+});
+
+categorySelect.addEventListener('change', () => {
+    const selectedCategory = categorySelect.value;
+    const tasks = document.querySelectorAll('#task-list li');
+
+    tasks.forEach(task => {
+        if (selectedCategory === 'all' || task.dataset.category === selectedCategory) {
             task.style.display = ''; // Show task
         } else {
             task.style.display = 'none'; // Hide task
