@@ -24,3 +24,23 @@ function addTask() {
 
     taskInput.value = '';
 }
+
+// Update task counter
+function updateTaskCounter() {
+    const taskList = document.getElementById('task-list');
+    const taskCounter = document.getElementById('task-counter');
+    taskCounter.textContent = `Tasks: ${taskList.children.length}`;
+}
+
+// Clear all tasks
+document.getElementById('clear-all-btn').addEventListener('click', () => {
+    const taskList = document.getElementById('task-list');
+    taskList.innerHTML = '';
+    updateTaskCounter();
+});
+
+// Update task counter on adding/removing tasks
+document.getElementById('add-task-btn').addEventListener('click', () => {
+    addTask();
+    updateTaskCounter();
+});

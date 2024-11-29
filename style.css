@@ -82,4 +82,28 @@ li button {
 
 li button:hover {
     background-color: #b73e3e;
-}  
+}
+
+.controls {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.controls button {
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.controls button:hover {
+    background-color: #574adf;
+}
+
+#task-counter {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #fff;
+}
